@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Document Upload API",
+		"description": "Collection for testing document upload endpoints with S3 URLs and pricing calculations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Printout Document Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"size\": \"a4\",\n    \"colorType\": \"color\",\n    \"paperType\": \"glossy\",\n    \"sideType\": \"single\",\n    \"copies\": 10,\n    \"s3Url\": \"https://your-bucket.s3.amazonaws.com/printout.pdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/printouts",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"printouts"
+					]
+				},
+				"description": "Upload a printout document with S3 URL and calculate price"
+			}
+		},
+		{
+			"name": "Spiral Binding Document Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"size\": \"a4\",\n    \"colorType\": \"color\",\n    \"bindingType\": \"metal_wire\",\n    \"sideType\": \"double\",\n    \"frontPageColor\": \"Blue\",\n    \"s3Url\": \"https://your-bucket.s3.amazonaws.com/spiral-binding.pdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/spiral-bindings",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"spiral-bindings"
+					]
+				},
+				"description": "Upload a spiral binding document with S3 URL and calculate price"
+			}
+		},
+		{
+			"name": "Lamination Document Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"size\": \"a4\",\n    \"colorType\": \"color\",\n    \"laminationType\": \"glossy\",\n    \"sideType\": \"single\",\n    \"thickness\": \"125mic\",\n    \"specialFeatures\": \"UV Protection\",\n    \"copies\": 5,\n    \"s3Url\": \"https://your-bucket.s3.amazonaws.com/lamination.pdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/laminations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"laminations"
+					]
+				},
+				"description": "Upload a lamination document with S3 URL and calculate price"
+			}
+		},
+		{
+			"name": "Photo Copy Document Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"size\": \"a4\",\n    \"paperType\": \"standard\",\n    \"sideType\": \"single\",\n    \"copies\": 20,\n    \"s3Url\": \"https://your-bucket.s3.amazonaws.com/photo-copy.pdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/photo-copies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"photo-copies"
+					]
+				},
+				"description": "Upload a photo copy document with S3 URL and calculate price"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "your_jwt_token_here",
+			"type": "string"
+		}
+	]
+} 

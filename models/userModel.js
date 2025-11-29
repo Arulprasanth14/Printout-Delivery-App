@@ -1,53 +1,59 @@
 const db = require('../config/db');
 
-
+// Get all users
 const getAllUsers = async () => {
   const result = await db.query('SELECT * FROM users');
   return result.rows;
 };
 
-
-const createUser = async (name, email, phone, hashedPassword, userType, address) => {
+// Create user
+const createUser = async (name, email, mobile, password, address) => {
   const result = await db.query(
-    `INSERT INTO users (name, email, phone, password, user_type, address) 
-     VALUES ($1, $2, $3, $4, $5, $6) 
-     RETURNING *`,
-    [name, email, phone, hashedPassword, userType, address]
+    `INSERT INTO users (name, email, mobile, password, address) 
+     VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+    [name, email, mobile, password, address]
   );
   return result.rows[0];
 };
 
-
-const getUserByName = async (name) => {
-  const result = await db.query(
-    'SELECT * FROM users WHERE name = $1',
-    [name]
-  );
+// Get user by email
+const getUserByEmail = async (email) => {
+  const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
   return result.rows[0];
 };
 
-
+// Get user by ID
 const getUserById = async (id) => {
+  const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+  return result.rows[0];
+};
+
+const updateUser = async (id, name, email, mobile, address) => {
   const result = await db.query(
-    'SELECT * FROM users WHERE id = $1',
-    [id]
+    `UPDATE users 
+     SET name = $1, email = $2, mobile = $3, address = $4, updated_at = NOW()
+     WHERE id = $5 
+     RETURNING id, name, email, mobile, address, created_at, updated_at`,
+    [name, email, mobile, address, id]
   );
   return result.rows[0];
 };
 
-
-const getUsersByType = async (userType) => {
+// Update password
+const updatePassword = async (id, password) => {
   const result = await db.query(
-    'SELECT * FROM users WHERE user_type = $1',
-    [userType]
+    `UPDATE users SET password = $1 WHERE id = $2 RETURNING *`,
+    [password, id]
   );
-  return result.rows;
+  return result.rows[0];
 };
+
 
 module.exports = {
   getAllUsers,
   createUser,
-  getUserByName,
+  getUserByEmail,
   getUserById,
-  getUsersByType, // export the new function also
+  updateUser,
+  updatePassword
 };

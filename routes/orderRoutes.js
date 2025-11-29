@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
+// const authMiddleware = require('../middleware/authMiddleware');
 
-router.get('/', orderController.getAllOrders);
-router.get('/:id', orderController.getOrderById);
-router.get('/user/:userId', orderController.getOrdersByUser);
-router.get('/shopkeeper/:shopkeeperId', orderController.getOrdersByShopkeeper);
-router.post('/', orderController.createOrder);
-router.put('/assign', orderController.assignShopkeeper);
-router.put('/status', orderController.updateOrderStatus);
+// Protected routes
+// router.post('/', authMiddleware, orderController.createOrder);
+// router.get('/', authMiddleware, orderController.getOrders);
+// router.get('/:orderId', authMiddleware, orderController.getOrderById);
+// router.get('/statistics', authMiddleware, orderController.getOrderStatistics);
+
+router.post('/orders', orderController.createOrder);
+router.get('/',  orderController.getOrders);
+router.get('/:orderId',  orderController.getOrderById);
+router.get('/statistics',  orderController.getOrderStatistics);
+router.get('/pending/all',  orderController.getPending);
 
 module.exports = router;
